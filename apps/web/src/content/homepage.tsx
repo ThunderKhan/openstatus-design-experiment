@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import motionStyles from "./homepage-motion.module.css";
 import { ButtonLink } from "./mdx-components/button-link";
 import { CustomerLogos } from "./mdx-components/customer-logos";
 import { CustomImage } from "./mdx-components/custom-image";
@@ -76,7 +77,7 @@ const tooling = [
 
 export function Homepage({ metadata }: { metadata: ContentMetadata }) {
   return (
-    <>
+    <div className={motionStyles.root}>
       <Hero metadata={metadata} />
       <Trust />
       <Monitoring />
@@ -84,14 +85,16 @@ export function Homepage({ metadata }: { metadata: ContentMetadata }) {
       <Tooling />
       <TryNetwork />
       <Faq metadata={metadata} />
-    </>
+    </div>
   );
 }
 
 function Hero({ metadata }: { metadata: ContentMetadata }) {
   return (
     <section className="border-border overflow-hidden border">
-      <div className="border-border grid border-b sm:grid-cols-[1fr_auto]">
+      <div
+        className={`border-border grid border-b sm:grid-cols-[1fr_auto] ${motionStyles.heroRail}`}
+      >
         <p className="text-muted-foreground px-4 py-3 text-xs">
           Status pages + uptime monitoring
         </p>
@@ -101,14 +104,18 @@ function Hero({ metadata }: { metadata: ContentMetadata }) {
       </div>
 
       <div className="grid lg:grid-cols-12">
-        <div className="border-border border-b p-6 sm:p-8 lg:col-span-8 lg:border-r lg:border-b-0 lg:p-10">
+        <div
+          className={`border-border border-b p-6 sm:p-8 lg:col-span-8 lg:border-r lg:border-b-0 lg:p-10 ${motionStyles.heroContent}`}
+        >
           <h1 className="text-foreground max-w-[18ch] text-balance text-3xl leading-[1.04] font-semibold tracking-[-0.045em] sm:text-5xl lg:text-[3.6rem]">
             {metadata.hero ?? metadata.title}
           </h1>
           <p className="text-foreground/75 mt-7 max-w-[58ch] text-base leading-7 sm:text-lg sm:leading-8">
             {metadata.description}
           </p>
-          <div className="mt-9 flex flex-col gap-2 sm:flex-row">
+          <div
+            className={`mt-9 flex flex-col gap-2 sm:flex-row ${motionStyles.ctaGroup}`}
+          >
             <ButtonLink href="https://app.openstatus.dev" variant="default">
               Create your status page
             </ButtonLink>
@@ -136,7 +143,7 @@ function Hero({ metadata }: { metadata: ContentMetadata }) {
         </div>
       </div>
 
-      <div className="border-border border-t">
+      <div className={`border-border border-t ${motionStyles.heroEvidence}`}>
         <ProductEvidenceFrame
           path="/status-page"
           meta="status.yourcompany.com"
@@ -190,9 +197,11 @@ function ProductEvidenceFrame({
   priority?: boolean;
 }) {
   return (
-    <div className="bg-muted/20 p-2 sm:p-3">
+    <div className={`bg-muted/20 p-2 sm:p-3 ${motionStyles.evidenceFrame}`}>
       <div className="border-border bg-background border">
-        <div className="border-border grid grid-cols-[1fr_auto] border-b">
+        <div
+          className={`border-border grid grid-cols-[1fr_auto] border-b ${motionStyles.evidenceHeader}`}
+        >
           <p className="text-foreground flex items-center gap-2 px-3 py-2 text-[11px]">
             <span aria-hidden className="bg-foreground size-1.5" />
             {path}
@@ -265,7 +274,7 @@ function Monitoring() {
 
           <Link
             href="/uptime-monitoring"
-            className="text-foreground hover:bg-muted mt-6 inline-flex border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4"
+            className={`text-foreground hover:bg-muted mt-6 inline-flex border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4 ${motionStyles.inlineAction}`}
           >
             Uptime monitoring
           </Link>
@@ -348,7 +357,7 @@ function IncidentCommunication() {
 
           <Link
             href="/status-page"
-            className="text-foreground hover:bg-muted mt-6 inline-flex border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4"
+            className={`text-foreground hover:bg-muted mt-6 inline-flex border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4 ${motionStyles.inlineAction}`}
           >
             Status pages
           </Link>
@@ -380,7 +389,7 @@ function Tooling() {
             <Link
               key={item.href}
               href={item.href}
-              className={`hover:bg-muted grid gap-2 p-4 no-underline sm:grid-cols-[7rem_1fr] sm:gap-4 sm:p-5 ${
+              className={`hover:bg-muted grid gap-2 p-4 no-underline sm:grid-cols-[7rem_1fr] sm:gap-4 sm:p-5 ${motionStyles.toolRow} ${
                 index < tooling.length - 1 ? "border-border border-b" : ""
               }`}
             >
@@ -389,7 +398,9 @@ function Tooling() {
                 <span className="text-muted-foreground block text-sm leading-6">
                   {item.description}
                 </span>
-                <span className="text-foreground mt-2 block text-xs">
+                <span
+                  className={`text-foreground mt-2 block text-xs ${motionStyles.toolPath}`}
+                >
                   {item.path}
                 </span>
               </span>
@@ -415,7 +426,7 @@ function TryNetwork() {
             The Global Speed Checker uses the same probe network that powers
             your monitors. No account and no credit card required.
           </p>
-          <div className="mt-8">
+          <div className={`mt-8 ${motionStyles.ctaGroup}`}>
             <ButtonLink href="/play/checker">Global Speed Checker</ButtonLink>
           </div>
         </div>
@@ -450,11 +461,15 @@ function Faq({ metadata }: { metadata: ContentMetadata }) {
   const faq = metadata.faq ?? [];
 
   return (
-    <section className="prose dark:prose-invert mt-20 max-w-none">
+    <section
+      className={`prose dark:prose-invert mt-20 max-w-none ${motionStyles.faq}`}
+    >
       <h2>Frequently asked questions</h2>
       {faq.map((item) => (
         <Details key={item.question} summary={item.question} headingLevel={3}>
-          <CustomMDX source={item.answer} />
+          <div className={motionStyles.faqAnswer}>
+            <CustomMDX source={item.answer} />
+          </div>
         </Details>
       ))}
     </section>
