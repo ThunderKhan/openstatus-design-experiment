@@ -27,6 +27,19 @@ const heroFacts = [
   },
 ] as const;
 
+const trustFacts = [
+  ["Built by", "Thibault + Max"],
+  ["Company", "Bootstrapped and self-funded"],
+  ["Deployment", "Managed SaaS or self-hosted"],
+] as const;
+
+const monitoringSteps = [
+  "Probe the endpoint",
+  "Alert the team",
+  "Update the status page",
+  "Keep the incident history",
+] as const;
+
 const incidentFeatures = [
   ["Status reports", "Publish incident updates as they happen."],
   ["Maintenance windows", "Communicate planned changes before they start."],
@@ -78,18 +91,24 @@ export function Homepage({ metadata }: { metadata: ContentMetadata }) {
 function Hero({ metadata }: { metadata: ContentMetadata }) {
   return (
     <section className="border-border overflow-hidden border">
+      <div className="border-border grid border-b sm:grid-cols-[1fr_auto]">
+        <p className="text-muted-foreground px-4 py-3 text-xs">
+          Status pages + uptime monitoring
+        </p>
+        <p className="border-border text-muted-foreground border-t px-4 py-3 text-xs sm:border-t-0 sm:border-l">
+          Open source / self-hostable
+        </p>
+      </div>
+
       <div className="grid lg:grid-cols-12">
-        <div className="border-border border-b p-5 sm:p-7 lg:col-span-8 lg:border-r lg:border-b-0 lg:p-8">
-          <p className="text-muted-foreground mb-8 text-sm">
-            Status pages + uptime monitoring
-          </p>
-          <h1 className="text-foreground max-w-[19ch] text-balance text-3xl leading-[1.08] font-semibold tracking-[-0.035em] sm:text-4xl lg:text-[3.25rem]">
+        <div className="border-border border-b p-6 sm:p-8 lg:col-span-8 lg:border-r lg:border-b-0 lg:p-10">
+          <h1 className="text-foreground max-w-[18ch] text-balance text-3xl leading-[1.04] font-semibold tracking-[-0.045em] sm:text-5xl lg:text-[3.6rem]">
             {metadata.hero ?? metadata.title}
           </h1>
-          <p className="text-foreground/75 mt-6 max-w-[62ch] text-base leading-7 sm:text-lg sm:leading-8">
+          <p className="text-foreground/75 mt-7 max-w-[58ch] text-base leading-7 sm:text-lg sm:leading-8">
             {metadata.description}
           </p>
-          <div className="mt-8 flex flex-col gap-2 sm:flex-row">
+          <div className="mt-9 flex flex-col gap-2 sm:flex-row">
             <ButtonLink href="https://app.openstatus.dev" variant="default">
               Create your status page
             </ButtonLink>
@@ -104,9 +123,12 @@ function Hero({ metadata }: { metadata: ContentMetadata }) {
 
         <div className="bg-border grid grid-cols-2 gap-px lg:col-span-4 lg:grid-cols-1">
           {heroFacts.map((fact) => (
-            <div key={fact.label} className="bg-background p-4 sm:p-5">
-              <p className="text-muted-foreground text-xs">{fact.label}</p>
-              <p className="text-foreground mt-2 text-base font-medium">
+            <div
+              key={fact.label}
+              className="bg-background flex min-h-28 flex-col justify-between p-4 sm:p-5 lg:min-h-0"
+            >
+              <p className="text-muted-foreground text-[11px]">{fact.label}</p>
+              <p className="text-foreground mt-4 max-w-[24ch] text-sm leading-6 font-medium sm:text-base">
                 {fact.value}
               </p>
             </div>
@@ -114,17 +136,17 @@ function Hero({ metadata }: { metadata: ContentMetadata }) {
         </div>
       </div>
 
-      <div className="border-border bg-muted/40 border-t p-2 sm:p-4">
-        <div className="[&_figcaption]:sr-only [&_figure]:m-0 [&_img]:border-0 [&_img]:outline-0">
-          <CustomImage
-            src="/assets/landing/statuspage-meow.png"
-            alt="OpenStatus status page example"
-            priority
-          />
-        </div>
+      <div className="border-border border-t">
+        <ProductEvidenceFrame
+          path="/status-page"
+          meta="status.yourcompany.com"
+          src="/assets/landing/statuspage-meow.png"
+          alt="OpenStatus status page example"
+          priority
+        />
       </div>
 
-      <div className="bg-border grid gap-px sm:grid-cols-3">
+      <div className="border-border divide-border grid border-t divide-y sm:grid-cols-3 sm:divide-x sm:divide-y-0">
         <EvidenceCell label="Custom domains">
           status.yourcompany.com
         </EvidenceCell>
@@ -148,67 +170,94 @@ function EvidenceCell({
 }) {
   return (
     <div className="bg-background p-4">
-      <p className="text-muted-foreground text-xs">{label}</p>
-      <p className="text-foreground mt-1">{children}</p>
+      <p className="text-muted-foreground text-[11px]">{label}</p>
+      <p className="text-foreground mt-2 text-sm leading-6">{children}</p>
+    </div>
+  );
+}
+
+function ProductEvidenceFrame({
+  path,
+  meta,
+  src,
+  alt,
+  priority = false,
+}: {
+  path: string;
+  meta: string;
+  src: string;
+  alt: string;
+  priority?: boolean;
+}) {
+  return (
+    <div className="bg-muted/20 p-2 sm:p-3">
+      <div className="border-border bg-background border">
+        <div className="border-border grid grid-cols-[1fr_auto] border-b">
+          <p className="text-foreground flex items-center gap-2 px-3 py-2 text-[11px]">
+            <span aria-hidden className="bg-foreground size-1.5" />
+            {path}
+          </p>
+          <p className="text-muted-foreground border-border border-l px-3 py-2 text-right text-[11px]">
+            {meta}
+          </p>
+        </div>
+        <div className="p-1 sm:p-2 [&_figcaption]:sr-only [&_figure]:m-0 [&_img]:border-0 [&_img]:outline-0">
+          <CustomImage src={src} alt={alt} priority={priority} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SectionRail({ path, meta }: { path: string; meta: string }) {
+  return (
+    <div className="border-border grid border-b sm:grid-cols-[1fr_auto]">
+      <p className="text-foreground px-4 py-3 text-xs">{path}</p>
+      <p className="border-border text-muted-foreground border-t px-4 py-3 text-xs sm:border-t-0 sm:border-l">
+        {meta}
+      </p>
     </div>
   );
 }
 
 function Trust() {
   return (
-    <section className="border-border mt-4 overflow-hidden border">
-      <div className="border-border grid border-b md:grid-cols-[minmax(0,0.8fr)_minmax(0,2.2fr)]">
-        <div className="border-border p-4 md:border-r">
-          <p className="text-muted-foreground text-xs">Trusted in production</p>
-          <p className="text-foreground mt-2 max-w-[24ch] font-medium">
+    <section className="border-border mt-5 border-y">
+      <div className="grid md:grid-cols-12">
+        <div className="border-border border-b p-5 md:col-span-4 md:border-r md:border-b-0 sm:p-6">
+          <p className="text-muted-foreground text-xs">/customers</p>
+          <p className="text-foreground mt-4 max-w-[25ch] text-lg leading-7 font-medium">
             Teams use OpenStatus to make reliability visible.
           </p>
         </div>
-        <div className="[&>div]:my-0 [&>div>*]:p-3">
+        <div className="md:col-span-8 [&>div]:my-0 [&>div>*]:p-3">
           <CustomerLogos />
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-3">
-        <EvidenceCellWithBorder label="Built by">
-          Thibault + Max
-        </EvidenceCellWithBorder>
-        <EvidenceCellWithBorder label="Company">
-          Bootstrapped and self-funded
-        </EvidenceCellWithBorder>
-        <div className="p-4">
-          <p className="text-muted-foreground text-xs">Deployment</p>
-          <p className="text-foreground mt-1">Managed SaaS or self-hosted</p>
-        </div>
+      <div className="border-border divide-border grid border-t divide-y bg-muted/20 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        {trustFacts.map(([label, value]) => (
+          <div key={label} className="p-3 sm:p-4">
+            <p className="text-muted-foreground text-[11px]">{label}</p>
+            <p className="text-foreground mt-1 text-sm">{value}</p>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
 
-function EvidenceCellWithBorder({
-  label,
-  children,
-}: {
-  label: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="border-border border-b p-4 sm:border-r sm:border-b-0">
-      <p className="text-muted-foreground text-xs">{label}</p>
-      <p className="text-foreground mt-1">{children}</p>
-    </div>
-  );
-}
-
 function Monitoring() {
   return (
-    <section className="border-border mt-16 border-y">
+    <section className="border-border mt-20 border-y">
+      <SectionRail path="/uptime-monitoring" meta="28 monitoring regions" />
+
       <div className="grid lg:grid-cols-12">
-        <div className="border-border border-b p-5 sm:p-7 lg:col-span-4 lg:border-r lg:border-b-0">
-          <h2 className="text-foreground text-2xl leading-tight font-semibold tracking-tight sm:text-3xl">
+        <div className="border-border border-b p-6 sm:p-7 lg:col-span-5 lg:border-r lg:border-b-0 lg:p-8">
+          <h2 className="text-foreground max-w-[17ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             Know before your customers do.
           </h2>
-          <p className="text-foreground/70 mt-4 max-w-[42ch] leading-7">
+          <p className="text-foreground/70 mt-5 max-w-[43ch] leading-7">
             Monitor endpoints from 28 regions across multiple clouds. When
             something breaks, OpenStatus can alert your team and keep the
             public status page current.
@@ -221,40 +270,36 @@ function Monitoring() {
             Uptime monitoring
           </Link>
 
-          <ol className="border-border mt-8 border">
-            {[
-              "Probe the endpoint",
-              "Alert the team",
-              "Update the status page",
-              "Keep the incident history",
-            ].map((step, index) => (
+          <ol className="border-border mt-9 border-l pl-4">
+            {monitoringSteps.map((step, index) => (
               <li
                 key={step}
-                className="border-border grid grid-cols-[2.5rem_1fr] border-b last:border-b-0"
+                className="grid grid-cols-[2rem_1fr] items-baseline gap-3 py-2"
               >
-                <span className="text-muted-foreground border-border border-r p-3 text-xs">
+                <span className="text-muted-foreground text-xs tabular-nums">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="text-foreground p-3 text-sm">{step}</span>
+                <span className="text-foreground text-sm">{step}</span>
               </li>
             ))}
           </ol>
         </div>
 
-        <div className="bg-muted/25 p-2 sm:p-4 lg:col-span-8 lg:p-5">
-          <div className="[&_figcaption]:sr-only [&_figure]:m-0 [&_img]:border-0 [&_img]:outline-0">
-            <CustomImage
-              src="/assets/landing/dashboard-logs.png"
-              alt="OpenStatus monitor response logs"
-            />
-          </div>
+        <div className="lg:col-span-7">
+          <ProductEvidenceFrame
+            path="/dashboard/monitor"
+            meta="response logs"
+            src="/assets/landing/dashboard-logs.png"
+            alt="OpenStatus monitor response logs"
+          />
         </div>
       </div>
 
-      <div className="bg-border grid gap-px sm:grid-cols-4">
+      <div className="bg-border grid grid-cols-2 gap-px sm:grid-cols-4">
         {["Slack", "Discord", "PagerDuty", "Email"].map((channel) => (
           <div key={channel} className="bg-background p-4">
-            <p className="text-foreground">{channel}</p>
+            <p className="text-muted-foreground text-[11px]">Alert channel</p>
+            <p className="text-foreground mt-1 text-sm">{channel}</p>
           </div>
         ))}
       </div>
@@ -264,35 +309,39 @@ function Monitoring() {
 
 function IncidentCommunication() {
   return (
-    <section className="border-border mt-16 border">
+    <section className="border-border mt-20 border">
+      <SectionRail path="/status-page" meta="timestamped incident history" />
+
       <div className="grid lg:grid-cols-12">
-        <div className="border-border bg-muted/25 border-b p-2 sm:p-4 lg:col-span-7 lg:border-r lg:border-b-0 lg:p-5">
-          <div className="[&_figcaption]:sr-only [&_figure]:m-0 [&_img]:border-0 [&_img]:outline-0">
-            <CustomImage
-              src="/assets/landing/statuspage-events.png"
-              alt="OpenStatus incident and maintenance history"
-            />
-          </div>
+        <div className="border-border border-b lg:col-span-7 lg:border-r lg:border-b-0">
+          <ProductEvidenceFrame
+            path="/status-page/events"
+            meta="incident + maintenance history"
+            src="/assets/landing/statuspage-events.png"
+            alt="OpenStatus incident and maintenance history"
+          />
         </div>
 
-        <div className="p-5 sm:p-7 lg:col-span-5">
-          <h2 className="text-foreground text-2xl leading-tight font-semibold tracking-tight sm:text-3xl">
+        <div className="p-6 sm:p-7 lg:col-span-5 lg:p-8">
+          <h2 className="text-foreground max-w-[18ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             Turn an outage into a documented incident trail.
           </h2>
-          <p className="text-foreground/70 mt-4 leading-7">
+          <p className="text-foreground/70 mt-5 leading-7">
             Security questionnaires ask how you notify customers during an
             incident. A branded status page gives customers one place to follow
             updates and gives auditors timestamped history they can inspect.
           </p>
 
-          <div className="border-border mt-8 divide-y border">
+          <div className="border-border mt-9 border-t">
             {incidentFeatures.map(([label, description]) => (
               <div
                 key={label}
-                className="grid gap-2 p-4 sm:grid-cols-[9rem_1fr]"
+                className="border-border grid gap-2 border-b py-4 sm:grid-cols-[9rem_1fr]"
               >
-                <span className="text-muted-foreground text-xs">{label}</span>
-                <span className="text-foreground text-sm">{description}</span>
+                <span className="text-muted-foreground text-[11px]">{label}</span>
+                <span className="text-foreground text-sm leading-6">
+                  {description}
+                </span>
               </div>
             ))}
           </div>
@@ -311,36 +360,42 @@ function IncidentCommunication() {
 
 function Tooling() {
   return (
-    <section className="mt-16">
-      <div className="grid gap-6 md:grid-cols-12 md:items-end">
-        <div className="md:col-span-7">
-          <h2 className="text-foreground max-w-[24ch] text-2xl leading-tight font-semibold tracking-tight sm:text-3xl">
+    <section className="border-border mt-20 border-y">
+      <SectionRail path="/tooling" meta="CLI / API / MCP / Terraform" />
+
+      <div className="grid md:grid-cols-12">
+        <div className="border-border border-b p-6 sm:p-7 md:col-span-5 md:border-r md:border-b-0 md:p-8">
+          <h2 className="text-foreground max-w-[17ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             One API key. Four ways to run OpenStatus.
           </h2>
+          <p className="text-foreground/70 mt-5 max-w-[40ch] leading-7">
+            Every action in the dashboard is reachable programmatically, so the
+            same monitoring setup can live in a terminal, an agent, or
+            infrastructure as code.
+          </p>
         </div>
-        <p className="text-foreground/70 max-w-[52ch] leading-7 md:col-span-5">
-          Every action in the dashboard is reachable programmatically, so the
-          same monitoring setup can live in a terminal, an agent, or
-          infrastructure as code.
-        </p>
-      </div>
 
-      <div className="border-border mt-6 border">
-        {tooling.map((item, index) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`hover:bg-muted grid gap-2 p-4 no-underline sm:grid-cols-[8rem_1fr_auto] sm:items-center ${
-              index < tooling.length - 1 ? "border-border border-b" : ""
-            }`}
-          >
-            <span className="text-foreground font-medium">{item.name}</span>
-            <span className="text-muted-foreground text-sm">
-              {item.description}
-            </span>
-            <span className="text-foreground text-sm">{item.path}</span>
-          </Link>
-        ))}
+        <div className="md:col-span-7">
+          {tooling.map((item, index) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`hover:bg-muted grid gap-2 p-4 no-underline sm:grid-cols-[7rem_1fr] sm:gap-4 sm:p-5 ${
+                index < tooling.length - 1 ? "border-border border-b" : ""
+              }`}
+            >
+              <span className="text-foreground font-medium">{item.name}</span>
+              <span className="min-w-0">
+                <span className="text-muted-foreground block text-sm leading-6">
+                  {item.description}
+                </span>
+                <span className="text-foreground mt-2 block text-xs">
+                  {item.path}
+                </span>
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -348,39 +403,42 @@ function Tooling() {
 
 function TryNetwork() {
   return (
-    <section className="border-border mt-16 border">
+    <section className="border-border mt-20 border">
+      <SectionRail path="/play/checker" meta="same probe network" />
+
       <div className="grid md:grid-cols-12">
-        <div className="border-border border-b p-5 sm:p-7 md:col-span-7 md:border-r md:border-b-0">
-          <h2 className="text-foreground max-w-[22ch] text-2xl leading-tight font-semibold tracking-tight sm:text-3xl">
+        <div className="border-border border-b p-6 sm:p-7 md:col-span-7 md:border-r md:border-b-0 md:p-8">
+          <h2 className="text-foreground max-w-[20ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             Check any URL from every monitoring region before you sign up.
           </h2>
-          <p className="text-foreground/70 mt-4 max-w-[54ch] leading-7">
+          <p className="text-foreground/70 mt-5 max-w-[53ch] leading-7">
             The Global Speed Checker uses the same probe network that powers
             your monitors. No account and no credit card required.
           </p>
-          <div className="mt-7">
+          <div className="mt-8">
             <ButtonLink href="/play/checker">Global Speed Checker</ButtonLink>
           </div>
         </div>
 
-        <div className="bg-border grid gap-px md:col-span-5">
-          <div className="bg-background p-5">
-            <p className="text-muted-foreground text-xs">Coverage</p>
-            <p className="text-foreground mt-2 text-3xl font-semibold tabular-nums">
-              28 regions
+        <div className="md:col-span-5">
+          <div className="bg-foreground text-background p-6 sm:p-8">
+            <p className="text-background/70 text-xs">Monitoring coverage</p>
+            <p className="mt-5 text-[4.5rem] leading-none font-semibold tracking-[-0.06em] tabular-nums sm:text-[5.5rem]">
+              28
             </p>
+            <p className="text-background/80 mt-2 text-sm">regions worldwide</p>
           </div>
-          <div className="bg-background p-5">
-            <p className="text-muted-foreground text-xs">Signup</p>
-            <p className="text-foreground mt-2 text-lg font-medium">
-              Not required
-            </p>
-          </div>
-          <div className="bg-background p-5">
-            <p className="text-muted-foreground text-xs">Network</p>
-            <p className="text-foreground mt-2 text-lg font-medium">
-              Same probes as OpenStatus monitors
-            </p>
+          <div className="border-border divide-border grid grid-cols-2 divide-x border-t">
+            <div className="p-4">
+              <p className="text-muted-foreground text-[11px]">Signup</p>
+              <p className="text-foreground mt-1 text-sm">Not required</p>
+            </div>
+            <div className="p-4">
+              <p className="text-muted-foreground text-[11px]">Network</p>
+              <p className="text-foreground mt-1 text-sm leading-5">
+                Same probes as OpenStatus monitors
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -392,7 +450,7 @@ function Faq({ metadata }: { metadata: ContentMetadata }) {
   const faq = metadata.faq ?? [];
 
   return (
-    <section className="prose dark:prose-invert mt-16 max-w-none">
+    <section className="prose dark:prose-invert mt-20 max-w-none">
       <h2>Frequently asked questions</h2>
       {faq.map((item) => (
         <Details key={item.question} summary={item.question} headingLevel={3}>
