@@ -1,22 +1,26 @@
 .root {
   --homepage-motion-feedback: 120ms;
   --homepage-motion-state: 180ms;
-  --homepage-motion-reveal: 520ms;
+  --homepage-motion-hero-rail: 420ms;
+  --homepage-motion-hero-content: 520ms;
+  --homepage-motion-hero-evidence: 560ms;
   --homepage-motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --homepage-motion-ease-state: cubic-bezier(0.2, 0, 0, 1);
 }
 
 .heroRail {
-  animation: hero-rail-in 420ms var(--homepage-motion-ease-out) both;
+  animation: hero-rail-in var(--homepage-motion-hero-rail)
+    var(--homepage-motion-ease-out) both;
 }
 
 .heroContent {
-  animation: hero-content-in var(--homepage-motion-reveal)
+  animation: hero-content-in var(--homepage-motion-hero-content)
     var(--homepage-motion-ease-out) 60ms both;
 }
 
 .heroEvidence {
-  animation: hero-evidence-in 560ms var(--homepage-motion-ease-out) 120ms both;
+  animation: hero-evidence-in var(--homepage-motion-hero-evidence)
+    var(--homepage-motion-ease-out) 120ms both;
 }
 
 @keyframes hero-rail-in {

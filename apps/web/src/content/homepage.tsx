@@ -235,6 +235,23 @@ function SectionRail({ path, meta }: { path: string; meta: string }) {
   );
 }
 
+function SectionActionLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className={`text-foreground hover:bg-muted mt-6 inline-flex min-h-11 items-center border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4 ${motionStyles.inlineAction}`}
+    >
+      {children}
+    </Link>
+  );
+}
+
 function Trust() {
   return (
     <section className="border-border mt-5 min-w-0 border-y">
@@ -280,12 +297,9 @@ function Monitoring() {
             public status page current.
           </p>
 
-          <Link
-            href="/uptime-monitoring"
-            className={`text-foreground hover:bg-muted mt-6 inline-flex min-h-11 items-center border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4 ${motionStyles.inlineAction}`}
-          >
+          <SectionActionLink href="/uptime-monitoring">
             Uptime monitoring
-          </Link>
+          </SectionActionLink>
 
           <ol className="border-border mt-7 border-l pl-4 sm:mt-9">
             {monitoringSteps.map((step, index) => (
@@ -367,12 +381,7 @@ function IncidentCommunication() {
             ))}
           </div>
 
-          <Link
-            href="/status-page"
-            className={`text-foreground hover:bg-muted mt-6 inline-flex min-h-11 items-center border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4 ${motionStyles.inlineAction}`}
-          >
-            Status pages
-          </Link>
+          <SectionActionLink href="/status-page">Status pages</SectionActionLink>
         </div>
       </div>
     </section>
