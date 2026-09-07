@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 
 import { cn } from "../lib/utils";
 
+const themeButtonClassName =
+  "bg-background hover:bg-muted aria-[pressed=true]:bg-foreground aria-[pressed=true]:text-background aria-[pressed=true]:hover:bg-foreground outline-none focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50";
+
 export function ThemeToggle({
   className,
   ...props
@@ -42,29 +45,34 @@ export function ThemeToggle({
 
   return (
     <div
+      {...props}
+      role="group"
+      aria-label="Color theme"
       className={cn(
-        "bg-border [&>*]:bg-background [&>*]:hover:bg-muted [&>*]:data-[active=true]:bg-muted flex items-center gap-px [&>*]:flex [&>*]:flex-1 [&>*]:items-center [&>*]:justify-center [&>*]:p-4",
+        "bg-border flex items-center gap-px [&>button]:flex [&>button]:flex-1 [&>button]:items-center [&>button]:justify-center [&>button]:p-4",
         className,
       )}
-      {...props}
     >
       <button
         type="button"
-        data-active={theme === "light"}
+        className={themeButtonClassName}
+        aria-pressed={theme === "light"}
         onClick={() => setTheme("light")}
       >
         [light]
       </button>
       <button
         type="button"
-        data-active={theme === "dark"}
+        className={themeButtonClassName}
+        aria-pressed={theme === "dark"}
         onClick={() => setTheme("dark")}
       >
         [dark]
       </button>
       <button
         type="button"
-        data-active={theme === "system"}
+        className={themeButtonClassName}
+        aria-pressed={theme === "system"}
         onClick={() => setTheme("system")}
       >
         [system]

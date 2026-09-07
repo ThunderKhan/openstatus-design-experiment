@@ -254,15 +254,21 @@ function SectionActionLink({
 
 function Trust() {
   return (
-    <section className="border-border mt-5 min-w-0 border-y">
+    <section
+      aria-labelledby="customers-heading"
+      className="border-border mt-5 min-w-0 border-y"
+    >
       <div className="grid min-w-0 md:grid-cols-12">
         <div className="border-border min-w-0 border-b p-4 sm:p-5 md:col-span-4 md:border-r md:border-b-0 md:p-6">
           <p className="text-muted-foreground text-xs">/customers</p>
-          <p className="text-foreground mt-4 max-w-[25ch] text-balance text-lg leading-7 font-medium">
+          <h2
+            id="customers-heading"
+            className="text-foreground mt-4 max-w-[25ch] text-balance text-lg leading-7 font-medium"
+          >
             Teams use OpenStatus to make reliability visible.
-          </p>
+          </h2>
         </div>
-        <div className="min-w-0 md:col-span-8 [&>div]:my-0 max-md:[&>div]:grid-cols-2 [&>div>*]:p-3 max-md:[&>div>*]:border-t-0! max-md:[&>div>*]:border-l-0! max-md:[&>div>*]:text-sm max-md:[&>div>*:nth-child(2n+1)]:border-l! md:[&>div>*]:border-t-0! md:[&>div>*]:border-l-0! md:[&>div>*]:text-base [&>div>a]:hover:bg-muted [&>div>a]:focus-visible:bg-muted">
+        <div className="min-w-0 md:col-span-8 [&>div]:my-0 max-md:[&>div]:grid-cols-2 [&>div>*]:p-3 max-md:[&>div>*]:border-t-0! max-md:[&>div>*]:border-l-0! max-md:[&>div>*]:text-sm max-md:[&>div>*:nth-child(2n+1)]:border-l! md:[&>div>*]:border-t-0! md:[&>div>*]:border-l-0! md:[&>div>*]:text-base [&>div>a]:hover:bg-muted [&>div>a]:focus-visible:bg-muted [&>div>a]:focus-visible:z-10 [&>div>a]:focus-visible:ring-[3px] [&>div>a]:focus-visible:ring-ring/50 [&>div>a]:focus-visible:outline-none">
           <CustomerLogos />
         </div>
       </div>

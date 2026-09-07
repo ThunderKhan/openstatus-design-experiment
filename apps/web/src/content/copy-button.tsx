@@ -92,7 +92,7 @@ export function CopyDropdownButton({
             aria-label="Copy dropdown"
           >
             <span
-              className="text-muted-foreground group-hover:text-foreground group-data-[state=open]:text-foreground relative top-[1px] shrink-0 origin-center font-sans text-[10px] transition duration-300 group-data-[state=open]:rotate-180"
+              className="text-muted-foreground group-hover:text-foreground group-data-[state=open]:text-foreground relative top-[1px] shrink-0 origin-center font-sans text-[10px] transition duration-300 motion-reduce:transition-none group-data-[state=open]:rotate-180"
               aria-hidden="true"
             >
               ▲
@@ -107,7 +107,7 @@ export function CopyDropdownButton({
         >
           <DropdownMenuGroup>
             <DropdownMenuItem
-              className="rounded-none font-mono"
+              className="rounded-none font-mono focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50"
               onClick={handleCopyMarkdown}
             >
               [copy markdown]

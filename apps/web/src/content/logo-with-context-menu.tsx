@@ -29,13 +29,19 @@ export function LogoWithContextMenu() {
           </div>
         </Link>
       </ContextMenuTrigger>
-      <ContextMenuContent className="min-w-[var(--radix-dropdown-menu-trigger-width)] rounded-none">
-        <ContextMenuItem className="rounded-none px-2 py-3 font-mono" asChild>
+      <ContextMenuContent className="min-w-[var(--radix-dropdown-menu-trigger-width)] rounded-none motion-reduce:animate-none">
+        <ContextMenuItem
+          className="rounded-none px-2 py-3 font-mono focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          asChild
+        >
           <a href="/assets/logos/OpenStatus.svg" download="openstatus.svg">
             Download Name SVG
           </a>
         </ContextMenuItem>
-        <ContextMenuItem className="rounded-none px-2 py-3 font-mono" asChild>
+        <ContextMenuItem
+          className="rounded-none px-2 py-3 font-mono focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          asChild
+        >
           <a
             href="/assets/logos/OpenStatus-Logo.svg"
             download="openstatus-logo.svg"

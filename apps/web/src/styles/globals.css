@@ -7,6 +7,16 @@
 @source '../../../../packages/ui/**/*.{ts,tsx}';
 @source '../../node_modules/@openstatus/react/**/*.{js,ts,jsx,tsx}';
 
+/* Existing app focus treatments use the semantic ring at 50% opacity. Keep
+   that focus language while giving it enough contrast in both themes. */
+:root {
+  --ring: oklch(0.25 0 0);
+}
+
+.dark {
+  --ring: oklch(0.8 0 0);
+}
+
 @theme {
   --color-sh-class: var(--sh-class);
   --color-sh-identifier: var(--sh-identifier);
@@ -120,6 +130,22 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  footer a:focus-visible,
+  [cmdk-input-wrapper] :is(input, button):focus-visible {
+    @apply outline-none ring-[3px] ring-ring/50;
+    position: relative;
+    z-index: 10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-slot='dropdown-menu-content'],
+  [data-slot='dialog-overlay'],
+  [data-slot='dialog-content'],
+  [cmdk-input-wrapper] .animate-spin {
+    animation: none !important;
   }
 }
 
