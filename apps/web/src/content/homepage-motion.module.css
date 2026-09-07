@@ -1,0 +1,150 @@
+.root {
+  --homepage-motion-feedback: 120ms;
+  --homepage-motion-state: 180ms;
+  --homepage-motion-reveal: 520ms;
+  --homepage-motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --homepage-motion-ease-state: cubic-bezier(0.2, 0, 0, 1);
+}
+
+.heroRail {
+  animation: hero-rail-in 420ms var(--homepage-motion-ease-out) both;
+}
+
+.heroContent {
+  animation: hero-content-in var(--homepage-motion-reveal)
+    var(--homepage-motion-ease-out) 60ms both;
+}
+
+.heroEvidence {
+  animation: hero-evidence-in 560ms var(--homepage-motion-ease-out) 120ms both;
+}
+
+@keyframes hero-rail-in {
+  from {
+    clip-path: inset(0 10% 0 0);
+    opacity: 0.72;
+  }
+  to {
+    clip-path: inset(0);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-content-in {
+  from {
+    clip-path: inset(0 0 0 2.5%);
+    opacity: 0.82;
+    transform: translateX(-6px);
+  }
+  to {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes hero-evidence-in {
+  from {
+    clip-path: inset(0 0 5% 0);
+    opacity: 0.86;
+  }
+  to {
+    clip-path: inset(0);
+    opacity: 1;
+  }
+}
+
+.ctaGroup > a,
+.inlineAction {
+  transition-duration: var(--homepage-motion-feedback);
+  transition-property: background-color, border-color, color,
+    text-decoration-color, transform;
+  transition-timing-function: var(--homepage-motion-ease-state);
+}
+
+.ctaGroup > a:active,
+.inlineAction:active {
+  transform: translateY(1px);
+}
+
+.evidenceHeader,
+.toolRow,
+.toolPath {
+  transition-duration: var(--homepage-motion-state);
+  transition-timing-function: var(--homepage-motion-ease-state);
+}
+
+.evidenceHeader,
+.toolRow {
+  transition-property: background-color, color;
+}
+
+.toolPath {
+  transition-property: transform;
+}
+
+.evidenceFrame:focus-within .evidenceHeader {
+  background-color: var(--muted);
+}
+
+.toolRow:focus-visible .toolPath {
+  transform: translateX(4px);
+}
+
+.toolRow:active .toolPath {
+  transform: translateX(2px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .evidenceFrame:hover .evidenceHeader {
+    background-color: var(--muted);
+  }
+
+  .toolRow:hover .toolPath {
+    transform: translateX(4px);
+  }
+}
+
+.faq :global(details[open]) .faqAnswer {
+  animation: faq-answer-in var(--homepage-motion-state)
+    var(--homepage-motion-ease-out) both;
+}
+
+@keyframes faq-answer-in {
+  from {
+    opacity: 0.68;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroRail,
+  .heroContent,
+  .heroEvidence,
+  .faq :global(details[open]) .faqAnswer {
+    animation: none;
+    clip-path: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .ctaGroup > a,
+  .inlineAction,
+  .evidenceHeader,
+  .toolRow,
+  .toolPath {
+    transition-duration: 0.01ms;
+  }
+
+  .ctaGroup > a:active,
+  .inlineAction:active,
+  .toolRow:hover .toolPath,
+  .toolRow:focus-visible .toolPath,
+  .toolRow:active .toolPath {
+    transform: none;
+  }
+}
