@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { CustomMDX } from "../../content/mdx";
+import { Homepage } from "../../content/homepage";
 import { getHomePage } from "../../content/utils";
 import { JsonLd } from "../../lib/metadata/json-ld";
 import { defaultMetadata } from "../../lib/metadata/shared-metadata";
@@ -29,11 +29,9 @@ export default function Page() {
   ]);
 
   return (
-    <div className="prose dark:prose-invert max-w-none">
+    <>
       <JsonLd graph={jsonLDGraph} />
-      <h1>{homePage.metadata.hero ?? homePage.metadata.title}</h1>
-      <p className="text-lg">{homePage.metadata.description}</p>
-      <CustomMDX source={homePage.content} />
-    </div>
+      <Homepage metadata={homePage.metadata} />
+    </>
   );
 }
