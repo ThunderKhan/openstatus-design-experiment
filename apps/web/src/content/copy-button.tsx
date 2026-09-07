@@ -79,7 +79,7 @@ export function CopyDropdownButton({
     >
       <Button
         variant="ghost"
-        className="rounded-none p-4"
+        className="pointer-coarse:min-h-11 rounded-none p-4"
         onClick={handleCopyLink}
       >
         {isCopied ? "[link copied]" : "[copy link]"}
@@ -88,7 +88,7 @@ export function CopyDropdownButton({
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
-            className="group rounded-none"
+            className="group pointer-coarse:min-h-11 pointer-coarse:min-w-11 rounded-none"
             aria-label="Copy dropdown"
           >
             <span
@@ -107,7 +107,7 @@ export function CopyDropdownButton({
         >
           <DropdownMenuGroup>
             <DropdownMenuItem
-              className="rounded-none font-mono focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50"
+              className="pointer-coarse:min-h-11 rounded-none font-mono focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50"
               onClick={handleCopyMarkdown}
             >
               [copy markdown]

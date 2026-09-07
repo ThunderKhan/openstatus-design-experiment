@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { OpenPanelComponent } from "@openpanel/nextjs";
 import { Toaster } from "@openstatus/ui/components/ui/sonner";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import PlausibleProvider from "next-plausible";
 import { Inter } from "next/font/google";
 import LocalFont from "next/font/local";
@@ -59,6 +59,13 @@ export const metadata: Metadata = {
   openGraph: {
     ...ogMetadata,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 export default function RootLayout({

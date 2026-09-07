@@ -146,7 +146,7 @@ function Hero({ metadata }: { metadata: ContentMetadata }) {
       <div className={`border-border min-w-0 border-t ${motionStyles.heroEvidence}`}>
         <ProductEvidenceFrame
           path="/status-page"
-          meta="status.yourcompany.com"
+          meta={<span translate="no">status.yourcompany.com</span>}
           src="/assets/landing/statuspage-meow.png"
           alt="OpenStatus status page example"
           priority
@@ -155,7 +155,7 @@ function Hero({ metadata }: { metadata: ContentMetadata }) {
 
       <div className="border-border divide-border grid border-t divide-y sm:grid-cols-3 sm:divide-x sm:divide-y-0">
         <EvidenceCell label="Custom domains">
-          status.yourcompany.com
+          <span translate="no">status.yourcompany.com</span>
         </EvidenceCell>
         <EvidenceCell label="Incident communication">
           Status reports + maintenance windows
@@ -193,7 +193,7 @@ function ProductEvidenceFrame({
   priority = false,
 }: {
   path: string;
-  meta: string;
+  meta: ReactNode;
   src: string;
   alt: string;
   priority?: boolean;
@@ -206,7 +206,10 @@ function ProductEvidenceFrame({
         <div
           className={`border-border grid min-w-0 grid-cols-1 border-b sm:grid-cols-[minmax(0,1fr)_auto] ${motionStyles.evidenceHeader}`}
         >
-          <p className="text-foreground flex min-w-0 items-center gap-2 px-3 py-2 text-[11px] [overflow-wrap:anywhere]">
+          <p
+            translate="no"
+            className="text-foreground flex min-w-0 items-center gap-2 px-3 py-2 text-[11px] [overflow-wrap:anywhere]"
+          >
             <span aria-hidden className="bg-foreground size-1.5 shrink-0" />
             {path}
           </p>
@@ -225,7 +228,10 @@ function ProductEvidenceFrame({
 function SectionRail({ path, meta }: { path: string; meta: string }) {
   return (
     <div className="border-border grid min-w-0 grid-cols-1 border-b md:grid-cols-[minmax(0,1fr)_auto]">
-      <p className="text-foreground min-w-0 px-4 py-3 text-xs [overflow-wrap:anywhere]">
+      <p
+        translate="no"
+        className="text-foreground min-w-0 px-4 py-3 text-xs [overflow-wrap:anywhere]"
+      >
         {path}
       </p>
       <p className="border-border text-muted-foreground min-w-0 border-t px-4 py-3 text-xs [overflow-wrap:anywhere] md:border-t-0 md:border-l">
@@ -260,7 +266,9 @@ function Trust() {
     >
       <div className="grid min-w-0 md:grid-cols-12">
         <div className="border-border min-w-0 border-b p-4 sm:p-5 md:col-span-4 md:border-r md:border-b-0 md:p-6">
-          <p className="text-muted-foreground text-xs">/customers</p>
+          <p translate="no" className="text-muted-foreground text-xs">
+            /customers
+          </p>
           <h2
             id="customers-heading"
             className="text-foreground mt-4 max-w-[25ch] text-balance text-lg leading-7 font-medium"
@@ -428,6 +436,7 @@ function Tooling() {
                   {item.description}
                 </span>
                 <span
+                  translate="no"
                   className={`text-foreground mt-2 block min-w-0 text-xs [overflow-wrap:anywhere] ${motionStyles.toolPath}`}
                 >
                   {item.path}
