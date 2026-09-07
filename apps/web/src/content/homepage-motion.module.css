@@ -142,6 +142,7 @@
 
   .ctaGroup > a:active,
   .inlineAction:active,
+  .toolRow:hover .toolPath,
   .toolRow:focus-visible .toolPath,
   .toolRow:active .toolPath {
     transform: none;
