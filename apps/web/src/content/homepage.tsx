@@ -77,7 +77,7 @@ const tooling = [
 
 export function Homepage({ metadata }: { metadata: ContentMetadata }) {
   return (
-    <div className={motionStyles.root}>
+    <div className={`${motionStyles.root} min-w-0`}>
       <Hero metadata={metadata} />
       <Trust />
       <Monitoring />
@@ -91,30 +91,30 @@ export function Homepage({ metadata }: { metadata: ContentMetadata }) {
 
 function Hero({ metadata }: { metadata: ContentMetadata }) {
   return (
-    <section className="border-border overflow-hidden border">
+    <section className="border-border min-w-0 overflow-hidden border">
       <div
-        className={`border-border grid border-b sm:grid-cols-[1fr_auto] ${motionStyles.heroRail}`}
+        className={`border-border grid border-b sm:grid-cols-[minmax(0,1fr)_auto] ${motionStyles.heroRail}`}
       >
-        <p className="text-muted-foreground px-4 py-3 text-xs">
+        <p className="text-muted-foreground min-w-0 px-4 py-3 text-xs [overflow-wrap:anywhere]">
           Status pages + uptime monitoring
         </p>
-        <p className="border-border text-muted-foreground border-t px-4 py-3 text-xs sm:border-t-0 sm:border-l">
+        <p className="border-border text-muted-foreground min-w-0 border-t px-4 py-3 text-xs [overflow-wrap:anywhere] sm:border-t-0 sm:border-l">
           Open source / self-hostable
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-12">
+      <div className="grid min-w-0 lg:grid-cols-12">
         <div
-          className={`border-border border-b p-6 sm:p-8 lg:col-span-8 lg:border-r lg:border-b-0 lg:p-10 ${motionStyles.heroContent}`}
+          className={`border-border min-w-0 border-b p-5 sm:p-7 md:p-8 lg:col-span-8 lg:border-r lg:border-b-0 lg:p-10 ${motionStyles.heroContent}`}
         >
-          <h1 className="text-foreground max-w-[18ch] text-balance text-3xl leading-[1.04] font-semibold tracking-[-0.045em] sm:text-5xl lg:text-[3.6rem]">
+          <h1 className="text-foreground max-w-[18ch] text-balance text-3xl leading-[1.04] font-semibold tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-[3.6rem]">
             {metadata.hero ?? metadata.title}
           </h1>
-          <p className="text-foreground/75 mt-7 max-w-[58ch] text-base leading-7 sm:text-lg sm:leading-8">
+          <p className="text-foreground/75 mt-5 max-w-[58ch] text-base leading-7 sm:mt-6 sm:text-lg sm:leading-8 md:mt-7">
             {metadata.description}
           </p>
           <div
-            className={`mt-9 flex flex-col gap-2 sm:flex-row ${motionStyles.ctaGroup}`}
+            className={`mt-7 flex flex-col gap-2 sm:mt-8 sm:flex-row md:mt-9 [&>a]:w-full sm:[&>a]:w-auto ${motionStyles.ctaGroup}`}
           >
             <ButtonLink href="https://app.openstatus.dev" variant="default">
               Create your status page
@@ -128,14 +128,14 @@ function Hero({ metadata }: { metadata: ContentMetadata }) {
           </p>
         </div>
 
-        <div className="bg-border grid grid-cols-2 gap-px lg:col-span-4 lg:grid-cols-1">
+        <div className="bg-border grid min-w-0 grid-cols-2 gap-px lg:col-span-4 lg:grid-cols-1">
           {heroFacts.map((fact) => (
             <div
               key={fact.label}
-              className="bg-background flex min-h-28 flex-col justify-between p-4 sm:p-5 lg:min-h-0"
+              className="bg-background flex min-h-24 min-w-0 flex-col justify-between p-3 min-[480px]:p-4 sm:min-h-28 sm:p-5 lg:min-h-0"
             >
               <p className="text-muted-foreground text-[11px]">{fact.label}</p>
-              <p className="text-foreground mt-4 max-w-[24ch] text-sm leading-6 font-medium sm:text-base">
+              <p className="text-foreground mt-3 max-w-[24ch] text-sm leading-6 font-medium [overflow-wrap:anywhere] sm:mt-4 sm:text-base">
                 {fact.value}
               </p>
             </div>
@@ -143,7 +143,7 @@ function Hero({ metadata }: { metadata: ContentMetadata }) {
         </div>
       </div>
 
-      <div className={`border-border border-t ${motionStyles.heroEvidence}`}>
+      <div className={`border-border min-w-0 border-t ${motionStyles.heroEvidence}`}>
         <ProductEvidenceFrame
           path="/status-page"
           meta="status.yourcompany.com"
@@ -176,9 +176,11 @@ function EvidenceCell({
   children: ReactNode;
 }) {
   return (
-    <div className="bg-background p-4">
+    <div className="bg-background min-w-0 p-4">
       <p className="text-muted-foreground text-[11px]">{label}</p>
-      <p className="text-foreground mt-2 text-sm leading-6">{children}</p>
+      <p className="text-foreground mt-2 text-sm leading-6 [overflow-wrap:anywhere]">
+        {children}
+      </p>
     </div>
   );
 }
@@ -197,20 +199,22 @@ function ProductEvidenceFrame({
   priority?: boolean;
 }) {
   return (
-    <div className={`bg-muted/20 p-2 sm:p-3 ${motionStyles.evidenceFrame}`}>
-      <div className="border-border bg-background border">
+    <div
+      className={`bg-muted/20 min-w-0 p-1.5 sm:p-2 md:p-3 ${motionStyles.evidenceFrame}`}
+    >
+      <div className="border-border bg-background min-w-0 overflow-hidden border">
         <div
-          className={`border-border grid grid-cols-[1fr_auto] border-b ${motionStyles.evidenceHeader}`}
+          className={`border-border grid min-w-0 grid-cols-1 border-b sm:grid-cols-[minmax(0,1fr)_auto] ${motionStyles.evidenceHeader}`}
         >
-          <p className="text-foreground flex items-center gap-2 px-3 py-2 text-[11px]">
-            <span aria-hidden className="bg-foreground size-1.5" />
+          <p className="text-foreground flex min-w-0 items-center gap-2 px-3 py-2 text-[11px] [overflow-wrap:anywhere]">
+            <span aria-hidden className="bg-foreground size-1.5 shrink-0" />
             {path}
           </p>
-          <p className="text-muted-foreground border-border border-l px-3 py-2 text-right text-[11px]">
+          <p className="border-border text-muted-foreground min-w-0 border-t px-3 py-2 text-left text-[11px] [overflow-wrap:anywhere] sm:border-t-0 sm:border-l sm:text-right">
             {meta}
           </p>
         </div>
-        <div className="p-1 sm:p-2 [&_figcaption]:sr-only [&_figure]:m-0 [&_img]:border-0 [&_img]:outline-0">
+        <div className="min-w-0 p-1 sm:p-2 [&_figcaption]:sr-only [&_figure]:m-0 [&_figure]:min-w-0 [&_img]:border-0 [&_img]:outline-0">
           <CustomImage src={src} alt={alt} priority={priority} />
         </div>
       </div>
@@ -220,9 +224,11 @@ function ProductEvidenceFrame({
 
 function SectionRail({ path, meta }: { path: string; meta: string }) {
   return (
-    <div className="border-border grid border-b sm:grid-cols-[1fr_auto]">
-      <p className="text-foreground px-4 py-3 text-xs">{path}</p>
-      <p className="border-border text-muted-foreground border-t px-4 py-3 text-xs sm:border-t-0 sm:border-l">
+    <div className="border-border grid min-w-0 grid-cols-1 border-b md:grid-cols-[minmax(0,1fr)_auto]">
+      <p className="text-foreground min-w-0 px-4 py-3 text-xs [overflow-wrap:anywhere]">
+        {path}
+      </p>
+      <p className="border-border text-muted-foreground min-w-0 border-t px-4 py-3 text-xs [overflow-wrap:anywhere] md:border-t-0 md:border-l">
         {meta}
       </p>
     </div>
@@ -231,24 +237,26 @@ function SectionRail({ path, meta }: { path: string; meta: string }) {
 
 function Trust() {
   return (
-    <section className="border-border mt-5 border-y">
-      <div className="grid md:grid-cols-12">
-        <div className="border-border border-b p-5 md:col-span-4 md:border-r md:border-b-0 sm:p-6">
+    <section className="border-border mt-5 min-w-0 border-y">
+      <div className="grid min-w-0 md:grid-cols-12">
+        <div className="border-border min-w-0 border-b p-4 sm:p-5 md:col-span-4 md:border-r md:border-b-0 md:p-6">
           <p className="text-muted-foreground text-xs">/customers</p>
           <p className="text-foreground mt-4 max-w-[25ch] text-lg leading-7 font-medium">
             Teams use OpenStatus to make reliability visible.
           </p>
         </div>
-        <div className="md:col-span-8 [&>div]:my-0 [&>div>*]:p-3">
+        <div className="min-w-0 md:col-span-8 [&>div]:my-0 max-md:[&>div]:grid-cols-2 [&>div>*]:p-3 max-md:[&>div>*]:border-t-0 max-md:[&>div>*]:border-l-0 max-md:[&>div>*]:text-sm max-md:[&>div>*:nth-child(-n+2)]:border-t max-md:[&>div>*:nth-child(2n+1)]:border-l md:[&>div>*]:text-base">
           <CustomerLogos />
         </div>
       </div>
 
       <div className="border-border divide-border grid border-t divide-y bg-muted/20 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
         {trustFacts.map(([label, value]) => (
-          <div key={label} className="p-3 sm:p-4">
+          <div key={label} className="min-w-0 p-3 sm:p-4">
             <p className="text-muted-foreground text-[11px]">{label}</p>
-            <p className="text-foreground mt-1 text-sm">{value}</p>
+            <p className="text-foreground mt-1 text-sm [overflow-wrap:anywhere]">
+              {value}
+            </p>
           </div>
         ))}
       </div>
@@ -258,11 +266,11 @@ function Trust() {
 
 function Monitoring() {
   return (
-    <section className="border-border mt-20 border-y">
+    <section className="border-border mt-14 min-w-0 border-y sm:mt-16 lg:mt-20">
       <SectionRail path="/uptime-monitoring" meta="28 monitoring regions" />
 
-      <div className="grid lg:grid-cols-12">
-        <div className="border-border border-b p-6 sm:p-7 lg:col-span-5 lg:border-r lg:border-b-0 lg:p-8">
+      <div className="grid min-w-0 lg:grid-cols-12">
+        <div className="border-border min-w-0 border-b p-5 sm:p-7 lg:col-span-5 lg:border-r lg:border-b-0 lg:p-8">
           <h2 className="text-foreground max-w-[17ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             Know before your customers do.
           </h2>
@@ -274,27 +282,29 @@ function Monitoring() {
 
           <Link
             href="/uptime-monitoring"
-            className={`text-foreground hover:bg-muted mt-6 inline-flex border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4 ${motionStyles.inlineAction}`}
+            className={`text-foreground hover:bg-muted mt-6 inline-flex min-h-11 items-center border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4 ${motionStyles.inlineAction}`}
           >
             Uptime monitoring
           </Link>
 
-          <ol className="border-border mt-9 border-l pl-4">
+          <ol className="border-border mt-7 border-l pl-4 sm:mt-9">
             {monitoringSteps.map((step, index) => (
               <li
                 key={step}
-                className="grid grid-cols-[2rem_1fr] items-baseline gap-3 py-2"
+                className="grid min-w-0 grid-cols-[2rem_minmax(0,1fr)] items-baseline gap-3 py-2"
               >
                 <span className="text-muted-foreground text-xs tabular-nums">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="text-foreground text-sm">{step}</span>
+                <span className="text-foreground text-sm [overflow-wrap:anywhere]">
+                  {step}
+                </span>
               </li>
             ))}
           </ol>
         </div>
 
-        <div className="lg:col-span-7">
+        <div className="min-w-0 lg:col-span-7">
           <ProductEvidenceFrame
             path="/dashboard/monitor"
             meta="response logs"
@@ -306,9 +316,11 @@ function Monitoring() {
 
       <div className="bg-border grid grid-cols-2 gap-px sm:grid-cols-4">
         {["Slack", "Discord", "PagerDuty", "Email"].map((channel) => (
-          <div key={channel} className="bg-background p-4">
+          <div key={channel} className="bg-background min-w-0 p-3 sm:p-4">
             <p className="text-muted-foreground text-[11px]">Alert channel</p>
-            <p className="text-foreground mt-1 text-sm">{channel}</p>
+            <p className="text-foreground mt-1 text-sm [overflow-wrap:anywhere]">
+              {channel}
+            </p>
           </div>
         ))}
       </div>
@@ -318,11 +330,11 @@ function Monitoring() {
 
 function IncidentCommunication() {
   return (
-    <section className="border-border mt-20 border">
+    <section className="border-border mt-14 min-w-0 border sm:mt-16 lg:mt-20">
       <SectionRail path="/status-page" meta="timestamped incident history" />
 
-      <div className="grid lg:grid-cols-12">
-        <div className="border-border border-b lg:col-span-7 lg:border-r lg:border-b-0">
+      <div className="grid min-w-0 lg:grid-cols-12">
+        <div className="border-border min-w-0 border-b lg:col-span-7 lg:border-r lg:border-b-0">
           <ProductEvidenceFrame
             path="/status-page/events"
             meta="incident + maintenance history"
@@ -331,7 +343,7 @@ function IncidentCommunication() {
           />
         </div>
 
-        <div className="p-6 sm:p-7 lg:col-span-5 lg:p-8">
+        <div className="min-w-0 p-5 sm:p-7 lg:col-span-5 lg:p-8">
           <h2 className="text-foreground max-w-[18ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             Turn an outage into a documented incident trail.
           </h2>
@@ -341,14 +353,14 @@ function IncidentCommunication() {
             updates and gives auditors timestamped history they can inspect.
           </p>
 
-          <div className="border-border mt-9 border-t">
+          <div className="border-border mt-7 border-t sm:mt-9">
             {incidentFeatures.map(([label, description]) => (
               <div
                 key={label}
-                className="border-border grid gap-2 border-b py-4 sm:grid-cols-[9rem_1fr]"
+                className="border-border grid min-w-0 gap-2 border-b py-4 sm:grid-cols-[9rem_minmax(0,1fr)]"
               >
                 <span className="text-muted-foreground text-[11px]">{label}</span>
-                <span className="text-foreground text-sm leading-6">
+                <span className="text-foreground text-sm leading-6 [overflow-wrap:anywhere]">
                   {description}
                 </span>
               </div>
@@ -357,7 +369,7 @@ function IncidentCommunication() {
 
           <Link
             href="/status-page"
-            className={`text-foreground hover:bg-muted mt-6 inline-flex border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4 ${motionStyles.inlineAction}`}
+            className={`text-foreground hover:bg-muted mt-6 inline-flex min-h-11 items-center border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4 ${motionStyles.inlineAction}`}
           >
             Status pages
           </Link>
@@ -369,11 +381,11 @@ function IncidentCommunication() {
 
 function Tooling() {
   return (
-    <section className="border-border mt-20 border-y">
+    <section className="border-border mt-14 min-w-0 border-y sm:mt-16 lg:mt-20">
       <SectionRail path="/tooling" meta="CLI / API / MCP / Terraform" />
 
-      <div className="grid md:grid-cols-12">
-        <div className="border-border border-b p-6 sm:p-7 md:col-span-5 md:border-r md:border-b-0 md:p-8">
+      <div className="grid min-w-0 lg:grid-cols-12">
+        <div className="border-border min-w-0 border-b p-5 sm:p-7 lg:col-span-5 lg:border-r lg:border-b-0 lg:p-8">
           <h2 className="text-foreground max-w-[17ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             One API key. Four ways to run OpenStatus.
           </h2>
@@ -384,22 +396,24 @@ function Tooling() {
           </p>
         </div>
 
-        <div className="md:col-span-7">
+        <div className="min-w-0 lg:col-span-7">
           {tooling.map((item, index) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`hover:bg-muted grid gap-2 p-4 no-underline sm:grid-cols-[7rem_1fr] sm:gap-4 sm:p-5 ${motionStyles.toolRow} ${
+              className={`hover:bg-muted grid min-h-11 min-w-0 gap-2 p-4 no-underline sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-4 sm:p-5 ${motionStyles.toolRow} ${
                 index < tooling.length - 1 ? "border-border border-b" : ""
               }`}
             >
-              <span className="text-foreground font-medium">{item.name}</span>
+              <span className="text-foreground min-w-0 font-medium [overflow-wrap:anywhere]">
+                {item.name}
+              </span>
               <span className="min-w-0">
-                <span className="text-muted-foreground block text-sm leading-6">
+                <span className="text-muted-foreground block text-sm leading-6 [overflow-wrap:anywhere]">
                   {item.description}
                 </span>
                 <span
-                  className={`text-foreground mt-2 block text-xs ${motionStyles.toolPath}`}
+                  className={`text-foreground mt-2 block min-w-0 text-xs [overflow-wrap:anywhere] ${motionStyles.toolPath}`}
                 >
                   {item.path}
                 </span>
@@ -414,11 +428,11 @@ function Tooling() {
 
 function TryNetwork() {
   return (
-    <section className="border-border mt-20 border">
+    <section className="border-border mt-14 min-w-0 border sm:mt-16 lg:mt-20">
       <SectionRail path="/play/checker" meta="same probe network" />
 
-      <div className="grid md:grid-cols-12">
-        <div className="border-border border-b p-6 sm:p-7 md:col-span-7 md:border-r md:border-b-0 md:p-8">
+      <div className="grid min-w-0 md:grid-cols-12">
+        <div className="border-border min-w-0 border-b p-5 sm:p-7 md:col-span-7 md:border-r md:border-b-0 md:p-8">
           <h2 className="text-foreground max-w-[20ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             Check any URL from every monitoring region before you sign up.
           </h2>
@@ -426,27 +440,29 @@ function TryNetwork() {
             The Global Speed Checker uses the same probe network that powers
             your monitors. No account and no credit card required.
           </p>
-          <div className={`mt-8 ${motionStyles.ctaGroup}`}>
+          <div
+            className={`mt-7 sm:mt-8 [&>a]:w-full sm:[&>a]:w-auto ${motionStyles.ctaGroup}`}
+          >
             <ButtonLink href="/play/checker">Global Speed Checker</ButtonLink>
           </div>
         </div>
 
-        <div className="md:col-span-5">
-          <div className="bg-foreground text-background p-6 sm:p-8">
+        <div className="min-w-0 md:col-span-5">
+          <div className="bg-foreground text-background min-w-0 p-5 sm:p-7 md:p-8">
             <p className="text-background/70 text-xs">Monitoring coverage</p>
-            <p className="mt-5 text-[4.5rem] leading-none font-semibold tracking-[-0.06em] tabular-nums sm:text-[5.5rem]">
+            <p className="mt-4 text-[4rem] leading-none font-semibold tracking-[-0.06em] tabular-nums sm:mt-5 sm:text-[4.5rem] md:text-[5.5rem]">
               28
             </p>
             <p className="text-background/80 mt-2 text-sm">regions worldwide</p>
           </div>
-          <div className="border-border divide-border grid grid-cols-2 divide-x border-t">
-            <div className="p-4">
+          <div className="border-border divide-border grid grid-cols-1 divide-y border-t min-[360px]:grid-cols-2 min-[360px]:divide-x min-[360px]:divide-y-0">
+            <div className="min-w-0 p-4">
               <p className="text-muted-foreground text-[11px]">Signup</p>
               <p className="text-foreground mt-1 text-sm">Not required</p>
             </div>
-            <div className="p-4">
+            <div className="min-w-0 p-4">
               <p className="text-muted-foreground text-[11px]">Network</p>
-              <p className="text-foreground mt-1 text-sm leading-5">
+              <p className="text-foreground mt-1 text-sm leading-5 [overflow-wrap:anywhere]">
                 Same probes as OpenStatus monitors
               </p>
             </div>
@@ -462,7 +478,7 @@ function Faq({ metadata }: { metadata: ContentMetadata }) {
 
   return (
     <section
-      className={`prose dark:prose-invert mt-20 max-w-none ${motionStyles.faq}`}
+      className={`prose dark:prose-invert mt-14 min-w-0 max-w-none sm:mt-16 lg:mt-20 ${motionStyles.faq}`}
     >
       <h2>Frequently asked questions</h2>
       {faq.map((item) => (
