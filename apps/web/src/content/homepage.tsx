@@ -245,7 +245,7 @@ function SectionActionLink({
   return (
     <Link
       href={href}
-      className={`text-foreground hover:bg-muted mt-6 inline-flex min-h-11 items-center border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4 ${motionStyles.inlineAction}`}
+      className={`text-foreground hover:bg-muted focus-visible:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 mt-6 inline-flex min-h-11 items-center border border-border px-3 py-2 text-sm underline decoration-muted-foreground/50 underline-offset-4 outline-none focus-visible:ring-[3px] ${motionStyles.inlineAction}`}
     >
       {children}
     </Link>
@@ -258,11 +258,11 @@ function Trust() {
       <div className="grid min-w-0 md:grid-cols-12">
         <div className="border-border min-w-0 border-b p-4 sm:p-5 md:col-span-4 md:border-r md:border-b-0 md:p-6">
           <p className="text-muted-foreground text-xs">/customers</p>
-          <p className="text-foreground mt-4 max-w-[25ch] text-lg leading-7 font-medium">
+          <p className="text-foreground mt-4 max-w-[25ch] text-balance text-lg leading-7 font-medium">
             Teams use OpenStatus to make reliability visible.
           </p>
         </div>
-        <div className="min-w-0 md:col-span-8 [&>div]:my-0 max-md:[&>div]:grid-cols-2 [&>div>*]:p-3 max-md:[&>div>*]:border-t-0 max-md:[&>div>*]:border-l-0 max-md:[&>div>*]:text-sm max-md:[&>div>*:nth-child(-n+2)]:border-t max-md:[&>div>*:nth-child(2n+1)]:border-l md:[&>div>*]:text-base">
+        <div className="min-w-0 md:col-span-8 [&>div]:my-0 max-md:[&>div]:grid-cols-2 [&>div>*]:p-3 max-md:[&>div>*]:border-t-0! max-md:[&>div>*]:border-l-0! max-md:[&>div>*]:text-sm max-md:[&>div>*:nth-child(2n+1)]:border-l! md:[&>div>*]:border-t-0! md:[&>div>*]:border-l-0! md:[&>div>*]:text-base [&>div>a]:hover:bg-muted [&>div>a]:focus-visible:bg-muted">
           <CustomerLogos />
         </div>
       </div>
@@ -288,7 +288,7 @@ function Monitoring() {
 
       <div className="grid min-w-0 lg:grid-cols-12">
         <div className="border-border min-w-0 border-b p-5 sm:p-7 lg:col-span-5 lg:border-r lg:border-b-0 lg:p-8">
-          <h2 className="text-foreground max-w-[17ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
+          <h2 className="text-foreground max-w-[17ch] text-balance text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             Know before your customers do.
           </h2>
           <p className="text-foreground/70 mt-5 max-w-[43ch] leading-7">
@@ -328,7 +328,7 @@ function Monitoring() {
         </div>
       </div>
 
-      <div className="bg-border grid grid-cols-2 gap-px sm:grid-cols-4">
+      <div className="border-border bg-border grid grid-cols-2 gap-px border-t sm:grid-cols-4">
         {["Slack", "Discord", "PagerDuty", "Email"].map((channel) => (
           <div key={channel} className="bg-background min-w-0 p-3 sm:p-4">
             <p className="text-muted-foreground text-[11px]">Alert channel</p>
@@ -358,7 +358,7 @@ function IncidentCommunication() {
         </div>
 
         <div className="min-w-0 p-5 sm:p-7 lg:col-span-5 lg:p-8">
-          <h2 className="text-foreground max-w-[18ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
+          <h2 className="text-foreground max-w-[18ch] text-balance text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             Turn an outage into a documented incident trail.
           </h2>
           <p className="text-foreground/70 mt-5 leading-7">
@@ -395,7 +395,7 @@ function Tooling() {
 
       <div className="grid min-w-0 lg:grid-cols-12">
         <div className="border-border min-w-0 border-b p-5 sm:p-7 lg:col-span-5 lg:border-r lg:border-b-0 lg:p-8">
-          <h2 className="text-foreground max-w-[17ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
+          <h2 className="text-foreground max-w-[17ch] text-balance text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             One API key. Four ways to run OpenStatus.
           </h2>
           <p className="text-foreground/70 mt-5 max-w-[40ch] leading-7">
@@ -410,7 +410,7 @@ function Tooling() {
             <Link
               key={item.href}
               href={item.href}
-              className={`hover:bg-muted grid min-h-11 min-w-0 gap-2 p-4 no-underline sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-4 sm:p-5 ${motionStyles.toolRow} ${
+              className={`hover:bg-muted focus-visible:bg-muted focus-visible:ring-ring/50 relative grid min-h-11 min-w-0 gap-2 p-4 no-underline outline-none focus-visible:z-10 focus-visible:ring-[3px] sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-4 sm:p-5 ${motionStyles.toolRow} ${
                 index < tooling.length - 1 ? "border-border border-b" : ""
               }`}
             >
@@ -442,7 +442,7 @@ function TryNetwork() {
 
       <div className="grid min-w-0 md:grid-cols-12">
         <div className="border-border min-w-0 border-b p-5 sm:p-7 md:col-span-7 md:border-r md:border-b-0 md:p-8">
-          <h2 className="text-foreground max-w-[20ch] text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
+          <h2 className="text-foreground max-w-[20ch] text-balance text-2xl leading-[1.12] font-semibold tracking-[-0.03em] sm:text-3xl">
             Check any URL from every monitoring region before you sign up.
           </h2>
           <p className="text-foreground/70 mt-5 max-w-[53ch] leading-7">
@@ -456,8 +456,8 @@ function TryNetwork() {
           </div>
         </div>
 
-        <div className="min-w-0 md:col-span-5">
-          <div className="bg-foreground text-background min-w-0 p-5 sm:p-7 md:p-8">
+        <div className="min-w-0 md:col-span-5 md:flex md:flex-col">
+          <div className="bg-foreground text-background min-w-0 p-5 sm:p-7 md:flex-1 md:p-8">
             <p className="text-background/70 text-xs">Monitoring coverage</p>
             <p className="mt-4 text-[4rem] leading-none font-semibold tracking-[-0.06em] tabular-nums sm:mt-5 sm:text-[4.5rem] md:text-[5.5rem]">
               28
@@ -487,7 +487,7 @@ function Faq({ metadata }: { metadata: ContentMetadata }) {
 
   return (
     <section
-      className={`prose dark:prose-invert mt-14 min-w-0 max-w-none sm:mt-16 lg:mt-20 ${motionStyles.faq}`}
+      className={`prose dark:prose-invert mt-14 min-w-0 max-w-none sm:mt-16 lg:mt-20 [&_summary]:outline-none [&_summary:focus-visible]:bg-muted [&_summary:focus-visible]:ring-ring/50 [&_summary:focus-visible]:ring-[3px] ${motionStyles.faq}`}
     >
       <h2>Frequently asked questions</h2>
       {faq.map((item) => (
